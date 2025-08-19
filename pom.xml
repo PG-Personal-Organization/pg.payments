@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.pg</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.3.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>pg.payments</groupId>
+    <artifactId>payments</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0.0</version>
+
+    <modules>
+        <module>pg.payments.api</module>
+        <module>pg.payments.application</module>
+        <module>pg.payments.domain</module>
+        <module>pg.payments.infrastructure</module>
+        <module>pg.payments.infrastructure-spring</module>
+        <module>pg.payments.integration-tests</module>
+        <module>pg.payments.standalone</module>
+    </modules>
+
+    <name>pg.payments</name>
+    <description>Backend app for Payments app</description>
+
+    <properties>
+        <pg.payments.version>${project.version}</pg.payments.version>
+
+        <!-- Libraries -->
+        <pg-lib.version>1.5.0</pg-lib.version>
+        <pg-context-auth.version>2.0.0</pg-context-auth.version>
+        <pg-kafka.version>1.0.0</pg-kafka.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Inner modules -->
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>spring</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>pg.payments.infrastructure</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>pg.payments.infrastructure-spring</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>pg.payments.application</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>pg.payments.api</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>pg.payments.domain</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.payments</groupId>
+                <artifactId>pg.payments.standalone</artifactId>
+                <version>${pg.payments.version}</version>
+            </dependency>
+
+            <!-- Other microservices -->
+            <dependency>
+                <groupId>pg.context-auth</groupId>
+                <artifactId>pg.context-auth.api</artifactId>
+                <version>${pg-context-auth.version}</version>
+            </dependency>
+
+            <!-- Libraries -->
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-lib-common</artifactId>
+                <version>${pg-lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-lib-cqrs</artifactId>
+                <version>${pg-lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-lib-remote-cqrs</artifactId>
+                <version>${pg-lib.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/PG-Personal-Organization</url>
+        </repository>
+    </repositories>
+
+</project>

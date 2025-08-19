@@ -1,0 +1,30 @@
+server:
+  error:
+    include-message: always
+  port: 8082
+management:
+  server:
+    port: 9082
+
+spring:
+  application:
+    name: payments
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://${DATASOURCE_URL}/${DATASOURCE_DATABASE}
+    username: ${DATASOURCE_USER}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: ${SHOW_SQL:false}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+remote-cqrs:
+  http:
+    remote-modules[0]:
+      module-name: context-auth
+      url: ${CONTEXT_AUTH_HOST:http://localhost:8081}/api/cqrs
