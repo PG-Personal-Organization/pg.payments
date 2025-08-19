@@ -35,6 +35,7 @@
         <pg-lib.version>1.5.0</pg-lib.version>
         <pg-context-auth.version>2.0.0</pg-context-auth.version>
         <pg-kafka.version>1.0.0</pg-kafka.version>
+        <pg-imports.version>1.0.0</pg-imports.version>
     </properties>
 
     <dependencyManagement>
@@ -98,6 +99,22 @@
                 <groupId>org.pg</groupId>
                 <artifactId>pg-lib-remote-cqrs</artifactId>
                 <version>${pg-lib.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-plugin-api</artifactId>
+                <version>${pg-imports.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-plugin-infrastructure</artifactId>
+                <version>${pg-imports.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-plugin-infrastructure-spring</artifactId>
+                <version>${pg-imports.version}</version>
             </dependency>
 
         </dependencies>

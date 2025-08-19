@@ -3,7 +3,7 @@ package pg.payments.standalone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import pg.payments.infrastructure.spring.configuration.PaymentsModuleConfiguration;
+import pg.payments.infrastructure.spring.PaymentsModuleConfiguration;
 
 @SpringBootApplication
 @Import({

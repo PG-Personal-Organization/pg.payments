@@ -2,19 +2,32 @@ server:
   error:
     include-message: always
   port: 8082
+
 management:
   server:
     port: 9082
 
+logging:
+  level:
+    root: info
+  file:
+    name: payments-ms-app.log
+
 spring:
   application:
-    name: payments
+    name: payments-microservice
+
+  profiles:
+    active: USER,BATCH
+
   config:
     import: optional:file:.env[.properties]
+
   datasource:
     url: jdbc:postgresql://${DATASOURCE_URL}/${DATASOURCE_DATABASE}
     username: ${DATASOURCE_USER}
     password: ${DATASOURCE_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -23,8 +36,42 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+#  kafka:
+#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
+
+  data:
+    mongodb:
+      host: ${MONGODB_HOST:localhost}
+      port: ${MONGODB_PORT:27017}
+      database: ${MONGODB_DATABASE:payments}
+
 remote-cqrs:
   http:
     remote-modules[0]:
       module-name: context-auth
       url: ${CONTEXT_AUTH_HOST:http://localhost:8081}/api/cqrs
+    remote-modules[1]:
+      module-name: accounts
+      url: ${ACCOUNTS_HOST:http://localhost:8083}/api/cqrs
+
+pg:
+  imports:
+    enabled: true
+    auto-start-importing-enabled: true
+
+  kafka:
+    bootstrap-server: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
+
+  lib:
+    awsfiles:
+      enabled: true
+      bucket-name: ${AWS_BUCKET_NAME:payments-imported-files}
+      access-key: ${AWS_ACCESS_KEY:}
+      secret-key: ${AWS_SECRET_KEY:}
+      aws-url: ${AWS_URL:}
