@@ -27,6 +27,10 @@
             <groupId>org.pg</groupId>
             <artifactId>pg-lib-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.pg</groupId>
+            <artifactId>pg-lib-cqrs</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

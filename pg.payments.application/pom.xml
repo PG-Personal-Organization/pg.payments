@@ -27,6 +27,14 @@
             <groupId>org.pg</groupId>
             <artifactId>pg-lib-cqrs</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.pg</groupId>
+            <artifactId>pg-plugin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>pg.context-auth</groupId>
+            <artifactId>pg.context-auth.api</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

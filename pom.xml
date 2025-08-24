@@ -108,11 +108,6 @@
             </dependency>
             <dependency>
                 <groupId>org.pg</groupId>
-                <artifactId>pg-plugin-infrastructure</artifactId>
-                <version>${pg-imports.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.pg</groupId>
                 <artifactId>pg-plugin-infrastructure-spring</artifactId>
                 <version>${pg-imports.version}</version>
             </dependency>
