@@ -13,9 +13,16 @@
     <artifactId>pg.payments.api</artifactId>
 
     <dependencies>
+        <!-- Inner modules -->
         <dependency>
             <groupId>pg.payments</groupId>
             <artifactId>pg.payments.domain</artifactId>
+        </dependency>
+
+        <!-- Other microservices -->
+        <dependency>
+            <groupId>pg.accounts</groupId>
+            <artifactId>pg.accounts.api</artifactId>
         </dependency>
 
         <dependency>

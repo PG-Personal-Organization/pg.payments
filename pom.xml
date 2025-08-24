@@ -34,6 +34,7 @@
         <!-- Libraries -->
         <pg-lib.version>1.5.0</pg-lib.version>
         <pg-context-auth.version>2.0.0</pg-context-auth.version>
+        <pg-accounts.version>1.0.0</pg-accounts.version>
         <pg-kafka.version>1.0.0</pg-kafka.version>
         <pg-imports.version>1.0.0</pg-imports.version>
     </properties>
@@ -82,6 +83,11 @@
                 <groupId>pg.context-auth</groupId>
                 <artifactId>pg.context-auth.api</artifactId>
                 <version>${pg-context-auth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pg.accounts</groupId>
+                <artifactId>pg.accounts.api</artifactId>
+                <version>${pg-accounts.version}</version>
             </dependency>
 
             <!-- Libraries -->
