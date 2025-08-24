@@ -13,7 +13,7 @@
     <groupId>pg.payments</groupId>
     <artifactId>payments</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0</version>
+    <version>1.0.0</version>
 
     <modules>
         <module>pg.payments.api</module>
