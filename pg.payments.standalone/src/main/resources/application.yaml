@@ -42,6 +42,12 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  cache:
+    type: caffeine
+    cache-names: contextCache
+    caffeine:
+      spec: maximumSize=50_000,expireAfterWrite=30m,expireAfterAccess=5m
+
 #  kafka:
 #    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
 
