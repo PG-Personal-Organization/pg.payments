@@ -1,0 +1,18 @@
+{
+  "found": true,
+  "hasAccess": true,
+  "account": {
+    "accountId": "120",
+    "accountNumber": "8023082979123",
+    "availableBalance": {
+      "USD": 1200000.00,
+      "EUR": 100000.00,
+      "PLN": 935000.00
+    },
+    "bookedBalance": {
+      "USD": 0.00,
+      "EUR": 0.00,
+      "PLN": 0.00
+    }
+  }
+}

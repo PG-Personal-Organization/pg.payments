@@ -22,4 +22,7 @@ public class AccountTransferData implements Serializable {
     private String transferAccountId;
     @NonNull
     private String transferAccountNumber;
+
+    @NonNull
+    private String bookingId;
 }

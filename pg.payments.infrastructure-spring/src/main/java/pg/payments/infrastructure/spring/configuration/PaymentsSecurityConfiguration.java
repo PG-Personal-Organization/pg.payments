@@ -14,12 +14,8 @@ public class PaymentsSecurityConfiguration {
 
     @Bean
     public Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> paymentsRequestCustomizer() {
-        return requests ->
-                requests
-                        .requestMatchers("/" + HttpServicesPaths.UPLOAD_FULL_PATH)
-                        .hasRole(Roles.USER.name())
-
-                        .requestMatchers("/" + ImportsHttpPaths.BASE_PATH + "/**")
-                        .hasRole(Roles.USER.name());
+        return requests -> requests
+                        .requestMatchers("/" + HttpServicesPaths.UPLOAD_FULL_PATH).hasRole(Roles.USER.name())
+                        .requestMatchers("/" + ImportsHttpPaths.BASE_PATH + "/**").hasRole(Roles.USER.name());
     }
 }

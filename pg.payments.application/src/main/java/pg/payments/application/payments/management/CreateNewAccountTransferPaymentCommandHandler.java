@@ -2,7 +2,7 @@ package pg.payments.application.payments.management;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import pg.accounts.api.model.AccountView;
+import pg.accounts.api.AccountView;
 import pg.accounts.domain.AccountViewUsage;
 import pg.lib.cqrs.command.CommandHandler;
 import pg.payments.api.accounts.AccountsProvider;
@@ -38,18 +38,20 @@ public class CreateNewAccountTransferPaymentCommandHandler implements CommandHan
         if (!hasTransferAccountSufficientBalance(transferAmount, currency, transferAccount)) {
             throw new TransferAccountInsufficientBalanceException(transferAccountNumber, transferAmount, currency);
         }
-        accountsService.bookAccountBalance(transferAccount.getAccountId(), currency, transferAmount);
+        var bookingId = accountsService.bookAccountBalance(transferAccount.getAccountId(), currency, transferAmount);
 
         var transferData = AccountTransferDto.builder()
                 .creditedAccountId(creditedAccount.getAccountId())
                 .creditedAccountNumber(creditedAccountNumber)
                 .transferAccountId(transferAccount.getAccountId())
                 .transferAccountNumber(transferAccountNumber)
+                .bookingId(bookingId)
                 .build();
         return paymentsService.createNewAccountTransferPayment(command.getRecordId(), transferData, transferAmount, currency, command.getUserId());
     }
 
     private static boolean hasTransferAccountSufficientBalance(final BigDecimal amount, final String currency, final AccountView transferAccount) {
-        return transferAccount.getAvailableBalance(currency).subtract(transferAccount.getBookedBalance(currency)).compareTo(amount) < 0;
+        var freeBalance = transferAccount.getAvailableBalance(currency).subtract(transferAccount.getBookedBalance(currency));
+        return freeBalance.compareTo(amount) >= 0;
     }
 }

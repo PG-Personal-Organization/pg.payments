@@ -25,21 +25,31 @@ public class AccountTransfersRecordParser implements RecordParser<AccountTransfe
     @Override
     @SuppressWarnings("unchecked")
     public @NonNull ReadOnlyParsedRecord<AccountTransferRecord> parse(final ReaderOutputItem<Object> item, final ImportContext importContext) {
+        final var data = (AccountTransferRecord) item.getRawItem();
         try {
-            final var data = (AccountTransferRecord) item.getRawItem();
-
             final Optional<UserContext> userContext = contextProvider.tryToGetUserContext();
             if (userContext.isEmpty()) {
                 throw new UserContextNotAvailableException();
             }
 
-            serviceExecutor.executeCommand(CreateNewAccountTransferPaymentCommand.of(item.getId(), data.getCreditedAccountNumber(), data.getTransferAccountNumber(),
-                    data.getAmount(), data.getCurrency(), userContext.get().getUserId()));
-            return ReadOnlyParsedRecord.<AccountTransferRecord>builder()
+            final var recordBuilder = ReadOnlyParsedRecord.<AccountTransferRecord>builder()
                     .recordId(item.getId())
                     .importId(importContext.getImportId().id())
                     .recordData(data)
-                    .ordinal(item.getItemNumber())
+                    .ordinal(item.getItemNumber());
+
+            if (data.getTransferAccountNumber().equals(data.getCreditedAccountNumber())) {
+                return recordBuilder
+                        .recordStatus(ImportRecordStatus.PARSING_FAILED)
+                        .errorMessages(Collections.singletonList("Credited account number cannot be the same as transfer account number."))
+                        .build();
+            }
+
+            var command = CreateNewAccountTransferPaymentCommand.of(
+                    item.getId(), data.getCreditedAccountNumber(), data.getTransferAccountNumber(), data.getAmount(), data.getCurrency(), userContext.get().getUserId());
+            serviceExecutor.executeCommand(command);
+
+            return recordBuilder
                     .recordStatus(ImportRecordStatus.PARSED)
                     .errorMessages(Collections.emptyList())
                     .build();
@@ -47,7 +57,7 @@ public class AccountTransfersRecordParser implements RecordParser<AccountTransfe
             return ReadOnlyParsedRecord.<AccountTransferRecord>builder()
                     .recordId(item.getId())
                     .importId(importContext.getImportId().id())
-                    .recordData(null)
+                    .recordData(data)
                     .ordinal(item.getItemNumber())
                     .recordStatus(ImportRecordStatus.PARSING_FAILED)
                     .errorMessages(Collections.singletonList(e.getMessage()))

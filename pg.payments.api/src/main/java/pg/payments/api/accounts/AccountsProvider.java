@@ -1,7 +1,7 @@
 package pg.payments.api.accounts;
 
 import lombok.NonNull;
-import pg.accounts.api.model.AccountView;
+import pg.accounts.api.AccountView;
 import pg.accounts.domain.AccountViewUsage;
 
 import java.util.Optional;

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/cqrs/v1/UserContextQuery",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$[?(@.contextToken == 'MOCK_CONTEXT_TOKEN')]"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "context-response.json",
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

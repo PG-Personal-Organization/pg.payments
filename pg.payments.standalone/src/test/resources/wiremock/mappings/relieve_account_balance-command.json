@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/cqrs/v1/RelieveAccountBalanceCommand"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "relieve_account_balance_command-response.json",
+    "transformers": [
+      "response-template"
+    ]
+  }
+}

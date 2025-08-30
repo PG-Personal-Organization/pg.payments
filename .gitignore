@@ -1,5 +1,7 @@
 .env
 settings.xml
+payments-ms-app.log
+payments-ms-app.log**
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

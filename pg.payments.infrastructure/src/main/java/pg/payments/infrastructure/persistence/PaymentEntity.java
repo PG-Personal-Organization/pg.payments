@@ -8,7 +8,6 @@ import pg.payments.domain.PaymentType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "payments")
 @Getter
@@ -47,7 +46,8 @@ public class PaymentEntity {
             @AttributeOverride(name = "creditedAccountId", column = @Column(name = "credited_account_id", nullable = false)),
             @AttributeOverride(name = "creditedAccountNumber", column = @Column(name = "credited_account_number", nullable = false)),
             @AttributeOverride(name = "transferAccountId", column = @Column(name = "transfer_account_id", nullable = false)),
-            @AttributeOverride(name = "transferAccountNumber", column = @Column(name = "transfer_account_number", nullable = false))
+            @AttributeOverride(name = "transferAccountNumber", column = @Column(name = "transfer_account_number", nullable = false)),
+            @AttributeOverride(name = "bookingId", column = @Column(name = "transfer_account_booking_id", nullable = false))
     })
     private AccountTransferData accountTransferData;
 
@@ -91,10 +91,11 @@ public class PaymentEntity {
         this.rejectedOn = LocalDateTime.now();
     }
 
-    public void rejectProcessing(final @NonNull String reason) {
+    public void rejectProcessing() {
         this.state = PaymentState.REJECTED_PROCESSING;
         this.rejectedOn = LocalDateTime.now();
-        this.rejectedReason = reason;
+        // TODO pass reason from import record in pg.imports.plugin.infrastructure.importing.CompletedImportImportingMessageHandler.clean
+//        this.rejectedReason = reason;
     }
 
     public static PaymentEntity createNewAccountTransfer(final @NonNull String id, final @NonNull AccountTransferData accountTransferData, final @NonNull BigDecimal amount,

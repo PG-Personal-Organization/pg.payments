@@ -1,0 +1,161 @@
+# Remote CQRS
+CONTEXT_AUTH_HOST: http://localhost:4099
+ACCOUNTS_HOST: http://localhost:4099
+
+management:
+  health:
+    db:
+      enabled: false
+# ===========================================
+# Spring Application Configuration
+# ===========================================
+spring:
+  application:
+    name: payments-imports-test
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      leak-detection-threshold: 0
+
+  batch:
+    jdbc:
+      initialize-schema: never
+
+  kafka:
+    admin:
+      auto-create: false
+
+  # Profiles
+  profiles:
+    group:
+      test: USER,test
+
+  # JPA/Hibernate Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+    jpa:
+      repositories:
+        bootstrap-mode: default
+
+  # Embedded MongoDB Configuration
+  mongodb:
+    embedded:
+      version: 6.0.6
+
+  cloud:
+    contract:
+      wiremock:
+        server:
+          files: classpath:/wiremock
+
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 6.0.6
+
+# ===========================================
+# Application Specific Configuration
+# ===========================================
+pg:
+  kafka:
+    enabled: true
+    # distributed processing topics
+    consumer-configs:
+      payments-imports-test-chunk-request-processing-batch-topic:
+        concurrency: 4
+      payments-imports-test-chunk-request-importing-batch-topic:
+        concurrency: 4
+      payments-imports-test-chunk-response-processing-batch-topic:
+        concurrency: 4
+      payments-imports-test-chunk-response-importing-batch-topic:
+        concurrency: 4
+
+  kafka-admin:
+    auto-create: true
+
+    # bootstrap-server: localhost:9092
+  imports:
+    enabled: true
+    # defaults
+    import-strategy: local
+    parsing-strategy: local
+
+    records-storing-strategy: library_json_database
+    kafka-imports-message-strategy: light_records
+
+    # Plugins specific
+    plugins-import-strategy:
+      ACCOUNT_TRANSFERS: local
+      SIMPLE_ACCOUNT_TRANSFERS: local
+      SIMPLE_SELF_STORING_ACCOUNT_TRANSFERS: local
+      PARALLEL_ACCOUNT_TRANSFERS: local_parallel
+      DISTRIBUTED_ACCOUNT_TRANSFERS: distributed
+      DISTRIBUTED_MONGO_ACCOUNT_TRANSFERS: distributed
+
+    plugins-parsing-strategy:
+      ACCOUNT_TRANSFERS: local
+      SIMPLE_ACCOUNT_TRANSFERS: local
+      SIMPLE_SELF_STORING_ACCOUNT_TRANSFERS: local
+      PARALLEL_ACCOUNT_TRANSFERS: local_parallel
+      DISTRIBUTED_ACCOUNT_TRANSFERS: distributed
+      DISTRIBUTED_MONGO_ACCOUNT_TRANSFERS: distributed
+
+    pluginsDatabaseRecordsStoring:
+      ACCOUNT_TRANSFERS: library_json_database
+      SIMPLE_ACCOUNT_TRANSFERS: library_json_database
+      SIMPLE_SELF_STORING_ACCOUNT_TRANSFERS: plugin_database
+      PARALLEL_ACCOUNT_TRANSFERS: library_json_database
+      DISTRIBUTED_ACCOUNT_TRANSFERS: library_json_database
+      DISTRIBUTED_MONGO_ACCOUNT_TRANSFERS: mongo_repository
+
+    auto-start-importing-enabled: false
+
+    batch:
+      parallel:
+        parsing:
+          corePoolSize: 16
+          maxPoolSize: 32
+
+  lib:
+    awsfiles:
+      enabled: false
+# ===========================================
+# Logging Configuration
+# ===========================================
+logging:
+  level:
+    pg:
+      kafka: debug
+      imports: debug
+    lib:
+      cqrs: debug
+    org:
+      apache:
+        zookeeper: error
+        kafka: error
+      springframework:
+        security:
+          web: DEBUG
+          kafka: error
+      testcontainers: error
+    kafka: WARN
+    state:
+      change:
+        logger: error
+    de:
+      flapdoodle:
+        embed:
+          mongo:
+            spring:
+              autoconfigure: error

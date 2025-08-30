@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/cqrs/v1/AccountQuery",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$[?(@.accountNumber == '8023082979123')]"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "accounts-response_120.json"
+  }
+}

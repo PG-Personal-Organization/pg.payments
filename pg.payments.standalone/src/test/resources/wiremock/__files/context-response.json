@@ -1,0 +1,9 @@
+{
+  "userId": "1",
+  "username": "MOCK_USER",
+  "roles": [
+    "USER",
+    "ACC1",
+    "ACC2"
+  ]
+}

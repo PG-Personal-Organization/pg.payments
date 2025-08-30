@@ -10,7 +10,7 @@ import pg.payments.application.imports.AccountTransferRecord;
 import java.nio.charset.Charset;
 
 @RequiredArgsConstructor
-public class AccountTransfersRecordsParsingComponentsProvider implements ParsingComponentsProvider<AccountTransferRecord, ReadOnlyParsedRecord<AccountTransferRecord>> {
+public class AccountTransfersParsingComponentsProvider implements ParsingComponentsProvider<AccountTransferRecord, ReadOnlyParsedRecord<AccountTransferRecord>> {
     private final AccountTransfersRecordParser accountTransfersRecordParser;
     private final AccountTransfersRecordsParsingErrorHandler accountTransfersRecordsParsingErrorHandler;
 
@@ -19,7 +19,7 @@ public class AccountTransfersRecordsParsingComponentsProvider implements Parsing
         return BeanIoReaderDefinition.builder()
                 .name("accountTransfersReader")
                 .charset(Charset.defaultCharset())
-                .streamBuilder((new StreamBuilder("testReader")
+                .streamBuilder((new StreamBuilder("accountTransfersReader")
                         .format("csv")
                         .parser(new CsvParserBuilder().delimiter(','))
                         .addRecord(AccountTransferRecord.class)

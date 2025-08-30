@@ -11,14 +11,14 @@ logging:
   level:
     root: info
   file:
-    name: payments-ms-app.log
+    name: logs/payments-ms-app.log
 
 spring:
   application:
     name: payments-microservice
 
   profiles:
-    active: USER,BATCH
+    active: USER
 
   config:
     import: optional:file:.env[.properties]
@@ -37,19 +37,34 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
+  batch:
+    jdbc:
+      initialize-schema: always
+    transaction:
+      isolation-level-for-create: READ_COMMITTED
+    job:
+      enabled: true
+
+  main:
+    allow-bean-definition-overriding: true
+    lazy-initialization: true
+
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  jackson:
+    deserialization:
+      use-big-decimal-for-floats: true
+    generator:
+      write-bigdecimal-as-plain: true
+
   cache:
     type: caffeine
     cache-names: contextCache
     caffeine:
-      spec: maximumSize=50_000,expireAfterWrite=30m,expireAfterAccess=5m
-
-#  kafka:
-#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
+      spec: maximumSize=50000,expireAfterWrite=30m,expireAfterAccess=5m
 
   data:
     mongodb:
@@ -73,6 +88,31 @@ pg:
 
   kafka:
     bootstrap-server: ${KAFKA_BOOTSTRAP_SERVER:localhost:9092}
+    enabled: true
+
+    consumer-configs:
+    # distributed processing topics
+      payments-microservice-chunk-request-processing-batch-topic:
+        concurrency: 6
+      payments-microservice-chunk-request-importing-batch-topic:
+        concurrency: 6
+      payments-microservice-chunk-response-processing-batch-topic:
+        concurrency: 12
+      payments-microservice-chunk-response-importing-batch-topic:
+        concurrency: 12
+    # basic topics
+      payments-microservice-scheduled-imports-parsing-topic:
+        concurrency: 4
+      payments-microservice-rejected-imports-parsing-topic:
+        concurrency: 4
+      payments-microservice-imports-parsing-finished-topic:
+        concurrency: 4
+      payments-microservice-scheduled-imports-importing-topic:
+        concurrency: 4
+      payments-microservice-completed-imports-importing-topic:
+        concurrency: 4
+      payments-microservice-rejected-imports-importing-topic:
+        concurrency: 4
 
   lib:
     awsfiles:
