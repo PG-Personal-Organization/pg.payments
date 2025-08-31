@@ -6,6 +6,13 @@ server:
 management:
   server:
     port: 9082
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
 
 logging:
   level:
