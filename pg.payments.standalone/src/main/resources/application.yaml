@@ -17,6 +17,11 @@ management:
 logging:
   level:
     root: info
+    pg: debug
+    org:
+      springframework:
+        security: debug
+        web: debug
   file:
     name: logs/payments-ms-app.log
 
