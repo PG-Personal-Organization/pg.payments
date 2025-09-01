@@ -13,7 +13,7 @@
     <groupId>pg.payments</groupId>
     <artifactId>payments</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
 
     <modules>
         <module>pg.payments.api</module>
@@ -33,7 +33,7 @@
         <!-- Libraries -->
         <pg-lib.version>2.3.4</pg-lib.version>
         <pg-context-auth.version>3.3.3</pg-context-auth.version>
-        <pg-accounts.version>1.2.4</pg-accounts.version>
+        <pg-accounts.version>1.2.6</pg-accounts.version>
         <pg-kafka.version>2.2.1</pg-kafka.version>
         <pg-imports.version>2.5.4</pg-imports.version>
     </properties>
