@@ -6,7 +6,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import pg.imports.plugin.infrastructure.spring.http.ImportsHttpPaths;
-import pg.lib.awsfiles.infrastructure.controller.HttpServicesPaths;
+import pg.lib.awsfiles.infrastructure.common.HttpServicesPaths;
 import pg.lib.common.spring.user.Roles;
 
 @Configuration

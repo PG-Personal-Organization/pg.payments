@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
-import pg.lib.awsfiles.infrastructure.config.InMemoryMockConfiguration;
+import pg.lib.awsfiles.infrastructure.mock.InMemoryMockConfiguration;
 import pg.payments.application.imports.importing.AccountTransfersImportingComponentsProvider;
 import pg.payments.application.imports.parsing.AccountTransfersParsingComponentsProvider;
 import pg.payments.application.imports.self.writer.AccountTransferPluginRecordsWriter;
