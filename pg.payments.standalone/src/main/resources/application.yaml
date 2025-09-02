@@ -22,6 +22,8 @@ logging:
       springframework:
         security: debug
         web: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{app-trace-id}] %-5level %logger{36} - %msg%n"
   file:
     name: logs/payments-ms-app.log
 

@@ -31,11 +31,11 @@
         <pg.payments.version>${project.version}</pg.payments.version>
 
         <!-- Libraries -->
-        <pg-lib.version>2.3.4</pg-lib.version>
-        <pg-context-auth.version>3.3.3</pg-context-auth.version>
-        <pg-accounts.version>1.2.6</pg-accounts.version>
-        <pg-kafka.version>2.2.1</pg-kafka.version>
-        <pg-imports.version>2.5.4</pg-imports.version>
+        <pg-lib.version>2.4.0</pg-lib.version>
+        <pg-context-auth.version>3.4.0</pg-context-auth.version>
+        <pg-accounts.version>1.3.0</pg-accounts.version>
+        <pg-kafka.version>2.3.0</pg-kafka.version>
+        <pg-imports.version>2.6.0</pg-imports.version>
     </properties>
 
     <dependencyManagement>

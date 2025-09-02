@@ -73,7 +73,7 @@ public class AccountTransfersRecordParser implements RecordParser<AccountTransfe
                     .recordData(data)
                     .ordinal(item.getItemNumber())
                     .recordStatus(ImportRecordStatus.PARSING_FAILED)
-                    .errorMessages(Collections.singletonList(e.getClass().getSimpleName() + "cause: " + e.getMessage()))
+                    .errorMessages(Collections.singletonList(e.getClass().getSimpleName() + " cause: " + e.getMessage()))
                     .build();
         }
 
