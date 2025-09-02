@@ -24,13 +24,13 @@ public class PaymentServiceImpl implements PaymentsService {
         var accountTransferData = new AccountTransferData(
                 data.getCreditedAccountId(), data.getCreditedAccountNumber(), data.getTransferAccountId(), data.getTransferAccountNumber(), data.getBookingId());
         var paymentEntity = PaymentEntity.createNewAccountTransfer(
-                AccountTransferRecordsUtil.recordIdMapper.apply(recordId), accountTransferData, amount, currency, description, userId);
+                AccountTransferRecordsUtil.recordIdToPaymentIdMapper.apply(recordId), accountTransferData, amount, currency, description, userId);
         return paymentRepository.save(paymentEntity).getId();
     }
 
     @Override
     public void deletePayments(final @NonNull List<String> paymentIds) {
-        var payments = paymentRepository.findAllById(paymentIds.stream().map(AccountTransferRecordsUtil.recordIdMapper).toList());
+        var payments = paymentRepository.findAllById(paymentIds.stream().map(AccountTransferRecordsUtil.recordIdToPaymentIdMapper).toList());
         payments.forEach(PaymentEntity::rejectCreating);
         paymentRepository.saveAll(payments);
     }

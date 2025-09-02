@@ -16,7 +16,7 @@ public class AccountTransfersCompletedImportingCleaner implements CompletedImpor
 
     @Override
     public void handleCleaningSuccessfulRecords(final @NonNull List<String> recordIds) {
-        var paymentIds = recordIds.stream().map(AccountTransferRecordsUtil.recordIdMapper).toList();
+        var paymentIds = recordIds.stream().map(AccountTransferRecordsUtil.recordIdToPaymentIdMapper).toList();
         var payments = paymentRepository.findAllById(paymentIds);
         payments.forEach(PaymentEntity::completeProcessing);
         paymentRepository.saveAll(payments);

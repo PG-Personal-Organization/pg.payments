@@ -15,7 +15,7 @@ public class AccountTransfersRecordsParsingErrorHandler implements RecordsParsin
 
     @Override
     public void handleError(final @NonNull List<String> recordIds) {
-        var paymentIds = recordIds.stream().map(AccountTransferRecordsUtil.recordIdMapper).toList();
+        var paymentIds = recordIds.stream().map(AccountTransferRecordsUtil.recordIdToPaymentIdMapper).toList();
         serviceExecutor.executeCommand(DeletePaymentsCommand.of(paymentIds));
     }
 }

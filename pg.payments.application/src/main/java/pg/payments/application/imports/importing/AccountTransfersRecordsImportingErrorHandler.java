@@ -16,7 +16,7 @@ public class AccountTransfersRecordsImportingErrorHandler implements RecordsImpo
 
     @Override
     public void handleImportingError(final @NonNull List<String> allRecordIds) {
-        var paymentIds = allRecordIds.stream().map(AccountTransferRecordsUtil.recordIdMapper).toList();
+        var paymentIds = allRecordIds.stream().map(AccountTransferRecordsUtil.recordIdToPaymentIdMapper).toList();
         var payments = paymentRepository.findAllById(paymentIds);
         payments.forEach(paymentEntity -> {
             paymentEntity.rejectProcessing();

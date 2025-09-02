@@ -37,7 +37,7 @@ public class AccountTransfersRecordsImporter implements RecordImporter<AccountTr
             return ImportingResult.error(ImportRejectionReasons.NO_RECORDS_TO_IMPORT_FOUND);
         }
 
-        var paymentIds = recordsToImport.stream().map(ParsedRecord::getRecordId).map(AccountTransferRecordsUtil.recordIdMapper).toList();
+        var paymentIds = recordsToImport.stream().map(ParsedRecord::getRecordId).map(AccountTransferRecordsUtil.recordIdToPaymentIdMapper).toList();
         log.debug("Importing payments: {}", paymentIds);
 
         var payments = paymentRepository.findAllById(paymentIds);
@@ -54,7 +54,7 @@ public class AccountTransfersRecordsImporter implements RecordImporter<AccountTr
                 accountsService.processAccountBalanceBooking(paymentTransferData.getTransferAccountId(), paymentTransferData.getBookingId());
             } catch (final Exception e) {
                 log.error("Error occurred during processing of payment {}.", paymentEntity.getId(), e);
-                errorMessages.put(paymentEntity.getId(), e.getMessage());
+                errorMessages.put(AccountTransferRecordsUtil.paymentIdToRecordIdMapper.apply(paymentEntity.getId()), e.getMessage());
             }
         });
         paymentRepository.saveAll(payments);
