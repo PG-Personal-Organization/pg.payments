@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import pg.imports.plugin.api.parsing.RecordsParsingErrorHandler;
 import pg.lib.cqrs.service.ServiceExecutor;
 import pg.payments.api.payments.management.DeletePaymentsCommand;
+import pg.payments.domain.AccountTransferRecordsUtil;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class AccountTransfersRecordsParsingErrorHandler implements RecordsParsin
 
     @Override
     public void handleError(final @NonNull List<String> recordIds) {
-        serviceExecutor.executeCommand(DeletePaymentsCommand.of(recordIds));
+        var paymentIds = recordIds.stream().map(AccountTransferRecordsUtil.recordIdMapper).toList();
+        serviceExecutor.executeCommand(DeletePaymentsCommand.of(paymentIds));
     }
 }

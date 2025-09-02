@@ -6,8 +6,10 @@ import pg.imports.plugin.api.importing.ImportingRecordsProvider;
 import pg.imports.plugin.api.importing.ImportingResult;
 import pg.imports.plugin.api.importing.RecordImporter;
 import pg.imports.plugin.api.parsing.ParsedRecord;
+import pg.imports.plugin.api.reason.ImportRejectionReasons;
 import pg.payments.api.accounts.AccountsService;
 import pg.payments.application.imports.AccountTransferRecord;
+import pg.payments.domain.AccountTransferRecordsUtil;
 import pg.payments.infrastructure.persistence.PaymentRepository;
 
 import java.util.HashMap;
@@ -30,10 +32,21 @@ public class AccountTransfersRecordsImporter implements RecordImporter<AccountTr
             return ImportingResult.error("Error while getting records to import: " + e.getMessage());
         }
 
-        var paymentIds = recordsToImport.stream().map(ParsedRecord::getRecordId).toList();
-        var payments = paymentRepository.findAllById(paymentIds);
-        final Map<String, String> errorMessages = new HashMap<>();
+        if (recordsToImport.isEmpty()) {
+            log.error("No records to import found.");
+            return ImportingResult.error(ImportRejectionReasons.NO_RECORDS_TO_IMPORT_FOUND);
+        }
 
+        var paymentIds = recordsToImport.stream().map(ParsedRecord::getRecordId).map(AccountTransferRecordsUtil.recordIdMapper).toList();
+        log.debug("Importing payments: {}", paymentIds);
+
+        var payments = paymentRepository.findAllById(paymentIds);
+        if (payments.isEmpty()) {
+            log.error("Payments with ids {} not found.", paymentIds);
+            return ImportingResult.error("Payments with ids " + paymentIds + " not found.");
+        }
+
+        final Map<String, String> errorMessages = new HashMap<>();
         payments.forEach(paymentEntity -> {
             try {
                 paymentEntity.startProcessing();
