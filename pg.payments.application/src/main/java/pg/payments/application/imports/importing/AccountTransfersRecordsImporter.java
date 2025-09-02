@@ -53,7 +53,7 @@ public class AccountTransfersRecordsImporter implements RecordImporter<AccountTr
                 var paymentTransferData = paymentEntity.getAccountTransferData();
                 accountsService.processAccountBalanceBooking(paymentTransferData.getTransferAccountId(), paymentTransferData.getBookingId());
             } catch (final Exception e) {
-                log.error("Error occurred during processing of payment {}.", paymentEntity.getId(), e);
+                log.error("Error occurred during processing of payment {} cause: {}.", paymentEntity.getId(), e.getMessage(), e);
                 errorMessages.put(AccountTransferRecordsUtil.paymentIdToRecordIdMapper.apply(paymentEntity.getId()), e.getMessage());
             }
         });

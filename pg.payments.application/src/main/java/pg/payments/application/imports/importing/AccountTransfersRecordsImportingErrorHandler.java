@@ -2,6 +2,7 @@ package pg.payments.application.imports.importing;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import pg.imports.plugin.api.importing.RecordsImportingErrorHandler;
 import pg.payments.api.accounts.AccountsService;
 import pg.payments.domain.AccountTransferRecordsUtil;
@@ -9,6 +10,7 @@ import pg.payments.infrastructure.persistence.PaymentRepository;
 
 import java.util.List;
 
+@Log4j2
 @RequiredArgsConstructor
 public class AccountTransfersRecordsImportingErrorHandler implements RecordsImportingErrorHandler {
     private final AccountsService accountsService;
@@ -18,6 +20,7 @@ public class AccountTransfersRecordsImportingErrorHandler implements RecordsImpo
     public void handleImportingError(final @NonNull List<String> allRecordIds) {
         var paymentIds = allRecordIds.stream().map(AccountTransferRecordsUtil.recordIdToPaymentIdMapper).toList();
         var payments = paymentRepository.findAllById(paymentIds);
+        log.debug("Payments to reject processing: {}", paymentIds);
         payments.forEach(paymentEntity -> {
             paymentEntity.rejectProcessing();
             var transferData = paymentEntity.getAccountTransferData();
