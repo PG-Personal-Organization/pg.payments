@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PaymentsService {
     String createNewAccountTransferPayment(@NonNull String recordId, @NonNull AccountTransferDto accountTransferDto, @NonNull BigDecimal amount, @NonNull String currency,
-                                           @NonNull String userId);
+                                           @NonNull String description, @NonNull String userId);
 
     void deletePayments(@NonNull List<String> paymentIds);
 }

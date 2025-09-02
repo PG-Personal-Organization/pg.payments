@@ -47,7 +47,7 @@ public class CreateNewAccountTransferPaymentCommandHandler implements CommandHan
                 .transferAccountNumber(transferAccountNumber)
                 .bookingId(bookingId)
                 .build();
-        return paymentsService.createNewAccountTransferPayment(command.getRecordId(), transferData, transferAmount, currency, command.getUserId());
+        return paymentsService.createNewAccountTransferPayment(command.getRecordId(), transferData, transferAmount, currency, command.getDescription(), command.getUserId());
     }
 
     private static boolean hasTransferAccountSufficientBalance(final BigDecimal amount, final String currency, final AccountView transferAccount) {

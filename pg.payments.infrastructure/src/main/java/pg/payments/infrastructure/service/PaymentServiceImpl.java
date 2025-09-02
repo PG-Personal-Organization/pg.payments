@@ -20,10 +20,11 @@ public class PaymentServiceImpl implements PaymentsService {
 
     @Override
     public String createNewAccountTransferPayment(final @NonNull String recordId, final @NonNull AccountTransferDto data, final @NonNull BigDecimal amount,
-                                                  final @NonNull String currency, final @NonNull String userId) {
+                                                  final @NonNull String currency, final @NonNull String description, final @NonNull String userId) {
         var accountTransferData = new AccountTransferData(
                 data.getCreditedAccountId(), data.getCreditedAccountNumber(), data.getTransferAccountId(), data.getTransferAccountNumber(), data.getBookingId());
-        var paymentEntity = PaymentEntity.createNewAccountTransfer(AccountTransferRecordsUtil.recordIdMapper.apply(recordId), accountTransferData, amount, currency, userId);
+        var paymentEntity = PaymentEntity.createNewAccountTransfer(
+                AccountTransferRecordsUtil.recordIdMapper.apply(recordId), accountTransferData, amount, currency, description, userId);
         return paymentRepository.save(paymentEntity).getId();
     }
 

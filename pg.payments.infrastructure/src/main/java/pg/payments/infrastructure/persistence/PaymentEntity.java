@@ -99,7 +99,7 @@ public class PaymentEntity {
     }
 
     public static PaymentEntity createNewAccountTransfer(final @NonNull String id, final @NonNull AccountTransferData accountTransferData, final @NonNull BigDecimal amount,
-                                                         final @NonNull String currency, final @NonNull String userId) {
+                                                         final @NonNull String currency, final @NonNull String description, final @NonNull String userId) {
         return PaymentEntity.builder()
                 .id(id)
                 .createdOn(LocalDateTime.now())
@@ -108,6 +108,7 @@ public class PaymentEntity {
                 .amount(amount)
                 .currency(currency)
                 .accountTransferData(accountTransferData)
+                .description(description)
                 .userId(userId)
                 .build();
     }

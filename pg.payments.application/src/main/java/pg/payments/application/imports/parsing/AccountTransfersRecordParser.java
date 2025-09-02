@@ -57,8 +57,8 @@ public class AccountTransfersRecordParser implements RecordParser<AccountTransfe
                         .build();
             }
 
-            var command = CreateNewAccountTransferPaymentCommand.of(
-                    item.getId(), data.getCreditedAccountNumber(), data.getTransferAccountNumber(), data.getAmount(), data.getCurrency(), userContext.get().getUserId());
+            var command = CreateNewAccountTransferPaymentCommand.of(item.getId(), data.getCreditedAccountNumber(), data.getTransferAccountNumber(), data.getAmount(),
+                    data.getCurrency(), data.getDescription(), userContext.get().getUserId());
             serviceExecutor.executeCommand(command);
 
             return recordBuilder

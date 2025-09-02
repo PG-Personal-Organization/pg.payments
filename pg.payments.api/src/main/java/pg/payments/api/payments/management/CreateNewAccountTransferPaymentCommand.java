@@ -29,5 +29,8 @@ public class CreateNewAccountTransferPaymentCommand implements Command<String> {
     private String currency;
 
     @NonNull
+    private String description;
+
+    @NonNull
     private String userId;
 }
