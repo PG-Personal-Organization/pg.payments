@@ -3,7 +3,6 @@ package pg.payments.application.imports.importing;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import pg.imports.plugin.api.importing.CompletedImportingCleaner;
 import pg.payments.domain.AccountTransferRecordsUtil;
 import pg.payments.infrastructure.persistence.PaymentEntity;
