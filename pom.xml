@@ -6,14 +6,14 @@
     <parent>
         <groupId>org.pg</groupId>
         <artifactId>parent</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>pg.payments</groupId>
     <artifactId>payments</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
 
     <modules>
         <module>pg.payments.api</module>
@@ -31,11 +31,11 @@
         <pg.payments.version>${project.version}</pg.payments.version>
 
         <!-- Libraries -->
-        <pg-lib.version>2.4.1</pg-lib.version>
-        <pg-context-auth.version>3.4.2</pg-context-auth.version>
-        <pg-accounts.version>1.3.2</pg-accounts.version>
-        <pg-kafka.version>2.3.1</pg-kafka.version>
-        <pg-imports.version>2.6.4</pg-imports.version>
+        <pg-lib.version>2.5.0</pg-lib.version>
+        <pg-context-auth.version>3.5.0</pg-context-auth.version>
+        <pg-accounts.version>1.3.3</pg-accounts.version>
+        <pg-kafka.version>2.3.2</pg-kafka.version>
+        <pg-imports.version>2.7.1</pg-imports.version>
     </properties>
 
     <dependencyManagement>
