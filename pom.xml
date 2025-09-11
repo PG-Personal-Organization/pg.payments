@@ -13,7 +13,7 @@
     <groupId>pg.payments</groupId>
     <artifactId>payments</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
 
     <modules>
         <module>pg.payments.api</module>
@@ -115,6 +115,11 @@
                 <groupId>org.pg</groupId>
                 <artifactId>pg-plugin-infrastructure-spring</artifactId>
                 <version>${pg-imports.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pg</groupId>
+                <artifactId>pg-kafka</artifactId>
+                <version>${pg-kafka.version}</version>
             </dependency>
 
         </dependencies>
